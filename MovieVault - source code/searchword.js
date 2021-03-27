@@ -4,7 +4,7 @@ module.exports = function(){
 
     function searchword(req, res, mysql, context,input){
         console.log("post: " + req.body.searchInput);
-        var sql = "SELECT * FROM Movie WHERE title LIKE '" + input + "%' ";
+        var sql = "SELECT * FROM Movie WHERE movie_title LIKE '" + input + "%' ";
         var inserts = [req.body.searchInput];
         mysql.pool.query(sql, function(error, results, fields){
             if(error){

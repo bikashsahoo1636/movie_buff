@@ -5,7 +5,7 @@ module.exports = function(){
 
 
     function getRatingEntries(res, mysql, context, complete, id){
-        var sql = "SELECT title, score, explanation, ratingID From Rating_Entry Inner Join Movie on Rating_Entry.movieID=Movie.movieID WHERE account_ID = ?";
+        var sql = "SELECT movie_title, score, explanation, ratingID From Rating_Entry Inner Join Movie on Rating_Entry.movie_id=Movie.movie_id WHERE account_ID = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -19,7 +19,7 @@ module.exports = function(){
     }
 
     function getRating(res, mysql, context, id){
-            var sql = "SELECT title, score, explanation, ratingID From Rating_Entry Inner Join Movie on Rating_Entry.movieID=Movie.movieID Where ratingID = ?";
+            var sql = "SELECT movie_title, score, explanation, ratingID From Rating_Entry Inner Join Movie on Rating_Entry.movie_id=Movie.movie_id Where ratingID = ?";
             var inserts = [id];
             mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){

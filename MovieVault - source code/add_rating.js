@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
     
     function getMovies(res, mysql, context){
-        mysql.pool.query("SELECT movieID as id, title From Movie", function(error, results, fields){
+        mysql.pool.query("SELECT movie_id as id, movie_title From Movie", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -16,7 +16,7 @@ module.exports = function(){
     }
 
     function addRating(req,res,mysql,id){
-        var sql = "INSERT INTO Rating_Entry (movieID, account_ID, score, explanation) VALUES (?,?,?,?)";
+        var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?)";
                 
         var inserts = [req.body.id, currAccount, req.body.score, req.body.explanation];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
@@ -55,7 +55,7 @@ module.exports = function(){
             }
 
             for (i = 0; i < results.length; i++){
-                if (req.body.id == results[i].movieID){
+                if (req.body.id == results[i].movie_id){
                     context.error.push({msg:"**You already have a rating entry for this movie**"});
                     found ++;
                 }

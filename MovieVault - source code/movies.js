@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
 
     function getMovies(res, mysql, context, complete)
-    {    var sql = "SELECT title, movieID From Movie";
+    {    var sql = "SELECT movie_title, movie_id From Movie";
          mysql.pool.query(sql, function(error, results, fields)
          {
              if(error)

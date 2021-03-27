@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2021 at 10:44 PM
+-- Generation Time: Mar 27, 2021 at 11:42 PM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 7.2.24-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -80,7 +80,7 @@ CREATE TABLE `Address` (
 --
 
 CREATE TABLE `Cast` (
-  `movieID` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
   `actorName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -88,7 +88,7 @@ CREATE TABLE `Cast` (
 -- Dumping data for table `Cast`
 --
 
-INSERT INTO `Cast` (`movieID`, `actorName`) VALUES
+INSERT INTO `Cast` (`movie_id`, `actorName`) VALUES
 (1, 'Cho Yeo-jeong'),
 (1, 'Choi Woo-shik'),
 (1, 'Park So-dam'),
@@ -183,24 +183,26 @@ CREATE TABLE `Movie` (
   `language` varchar(40) NOT NULL,
   `country` varchar(40) NOT NULL,
   `gross` int(11) NOT NULL,
-  `streaming_platform` varchar(40) NOT NULL
+  `streaming_platform` varchar(40) NOT NULL,
+  `totalAudiScore` int(11) NOT NULL DEFAULT '0',
+  `totalCriticScore` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Movie`
 --
 
-INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `director`, `producer`, `language`, `country`, `gross`, `streaming_platform`) VALUES
-(1, 'Parasite', '00:00:00', 'Bong Joon Ho', 'NEON', '', '', 267000000, ''),
-(2, 'Avengers: Endgame', '00:00:00', 'Joe Russo', 'Marvel Studios', '', '', 312900000, ''),
-(3, 'Us', '00:00:00', 'Jordan Peele', 'Universal Pictures', '', '', 26000000, ''),
-(4, 'Knives Out', '00:00:00', 'Rian Johnson', 'Lionsgate', '', '', 312900000, ''),
-(5, 'Toy Story 4', '00:00:00', 'Josh Cooley', 'Disney', '', '', 1073000000, ''),
-(6, 'The Irishman', '00:00:00', 'Martin Scorsese', 'Netflix', '', '', 119000000, ''),
-(7, 'Little Women', '00:00:00', 'Greta Gerwig', 'Sony Pictures', '', '', 206000000, ''),
-(8, 'Booksmart', '00:00:00', 'Olivia Wilde', 'United Artists', '', '', 24900000, ''),
-(9, 'The Farewell', '00:00:00', 'Lulu Wang', 'A24', '', '', 22500000, ''),
-(10, 'Marriage Story', '00:00:00', 'Noah Baumbach', 'Netflix', '', '', 2300000, '');
+INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `director`, `producer`, `language`, `country`, `gross`, `streaming_platform`, `totalAudiScore`, `totalCriticScore`) VALUES
+(1, 'Parasite', '00:00:00', 'Bong Joon Ho', 'NEON', '', '', 267000000, '', 0, 0),
+(2, 'Avengers: Endgame', '00:00:00', 'Joe Russo', 'Marvel Studios', '', '', 312900000, '', 0, 0),
+(3, 'Us', '00:00:00', 'Jordan Peele', 'Universal Pictures', '', '', 26000000, '', 0, 0),
+(4, 'Knives Out', '00:00:00', 'Rian Johnson', 'Lionsgate', '', '', 312900000, '', 0, 0),
+(5, 'Toy Story 4', '00:00:00', 'Josh Cooley', 'Disney', '', '', 1073000000, '', 0, 0),
+(6, 'The Irishman', '00:00:00', 'Martin Scorsese', 'Netflix', '', '', 119000000, '', 0, 0),
+(7, 'Little Women', '00:00:00', 'Greta Gerwig', 'Sony Pictures', '', '', 206000000, '', 0, 0),
+(8, 'Booksmart', '00:00:00', 'Olivia Wilde', 'United Artists', '', '', 24900000, '', 0, 0),
+(9, 'The Farewell', '00:00:00', 'Lulu Wang', 'A24', '', '', 22500000, '', 0, 0),
+(10, 'Marriage Story', '00:00:00', 'Noah Baumbach', 'Netflix', '', '', 2300000, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `director`, `p
 
 CREATE TABLE `Rating_Entry` (
   `ratingID` int(11) NOT NULL,
-  `movieID` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
   `account_ID` int(11) NOT NULL,
   `score` tinyint(4) NOT NULL,
   `explanation` text NOT NULL
@@ -220,7 +222,7 @@ CREATE TABLE `Rating_Entry` (
 -- Dumping data for table `Rating_Entry`
 --
 
-INSERT INTO `Rating_Entry` (`ratingID`, `movieID`, `account_ID`, `score`, `explanation`) VALUES
+INSERT INTO `Rating_Entry` (`ratingID`, `movie_id`, `account_ID`, `score`, `explanation`) VALUES
 (1, 1, 1, 90, 'Amazing Film'),
 (2, 2, 2, 98, 'Great way to end the series.'),
 (3, 3, 3, 78, 'Not as good as Get Out. Entertaining but questionable at times.'),
@@ -243,7 +245,8 @@ INSERT INTO `Rating_Entry` (`ratingID`, `movieID`, `account_ID`, `score`, `expla
 (20, 8, 16, 72, 'It was aight'),
 (21, 9, 15, 78, 'Just average.'),
 (22, 10, 18, 84, 'Scarlet Johansson and Adam Driver are amazing together.'),
-(23, 2, 9, 95, 'hello');
+(23, 2, 9, 95, 'hello'),
+(24, 1, 9, 45, 'goody');
 
 -- --------------------------------------------------------
 
@@ -282,7 +285,7 @@ ALTER TABLE `Address`
 -- Indexes for table `Cast`
 --
 ALTER TABLE `Cast`
-  ADD PRIMARY KEY (`movieID`,`actorName`);
+  ADD PRIMARY KEY (`movie_id`,`actorName`);
 
 --
 -- Indexes for table `Genre`
@@ -308,7 +311,7 @@ ALTER TABLE `Movie`
 --
 ALTER TABLE `Rating_Entry`
   ADD PRIMARY KEY (`ratingID`),
-  ADD KEY `movieID` (`movieID`),
+  ADD KEY `movieID` (`movie_id`),
   ADD KEY `account_ID` (`account_ID`);
 
 --
@@ -335,7 +338,7 @@ ALTER TABLE `Movie`
 -- AUTO_INCREMENT for table `Rating_Entry`
 --
 ALTER TABLE `Rating_Entry`
-  MODIFY `ratingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ratingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `Users`
 --
@@ -355,7 +358,7 @@ ALTER TABLE `Address`
 -- Constraints for table `Cast`
 --
 ALTER TABLE `Cast`
-  ADD CONSTRAINT `Cast_ibfk_1` FOREIGN KEY (`movieID`) REFERENCES `Movie` (`movie_id`);
+  ADD CONSTRAINT `Cast_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
 
 --
 -- Constraints for table `Genre`
@@ -373,7 +376,7 @@ ALTER TABLE `Member`
 -- Constraints for table `Rating_Entry`
 --
 ALTER TABLE `Rating_Entry`
-  ADD CONSTRAINT `Rating_Entry_ibfk_1` FOREIGN KEY (`movieID`) REFERENCES `Movie` (`movie_id`),
+  ADD CONSTRAINT `Rating_Entry_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`),
   ADD CONSTRAINT `Rating_Entry_ibfk_2` FOREIGN KEY (`account_ID`) REFERENCES `Account` (`account_ID`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

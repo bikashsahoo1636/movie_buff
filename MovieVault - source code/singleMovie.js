@@ -4,7 +4,7 @@ module.exports = function(){
 
 
     function getRatingEntries(res, mysql, context, complete, id){
-        var sql = "SELECT score, explanation From Rating_Entry Inner Join Movie on Rating_Entry.movieID = ? WHERE Movie.movieID = ?";
+        var sql = "SELECT score, explanation From Rating_Entry Inner Join Movie on Rating_Entry.movie_id = ? WHERE Movie.movie_id = ?";
         var inserts = [id, id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -19,7 +19,7 @@ module.exports = function(){
 
 
     function getMovie(res, mysql, context, complete, id){
-        var sql = "SELECT director, producer, gross, totalAudiScore, totalCriticScore From Movie WHERE movieID = ?";
+        var sql = "SELECT director, producer, gross, totalAudiScore, totalCriticScore From Movie WHERE movie_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){
@@ -33,7 +33,7 @@ module.exports = function(){
     }
 
     function getTitle(res, mysql, context, complete, id){
-        var sql = "SELECT title From Movie WHERE movieID = ?";
+        var sql = "SELECT movie_title From Movie WHERE movie_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){
@@ -41,13 +41,13 @@ module.exports = function(){
             res.end();
         }
 
-            context.title = results[0];
+            context.movie_title = results[0];
             complete();
         });
     }
 
     function getCast(res, mysql, context, complete, id){
-        var sql = "SELECT actorName From Cast WHERE movieID = ?";
+        var sql = "SELECT actorName From Cast WHERE movie_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){

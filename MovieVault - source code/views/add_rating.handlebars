@@ -10,7 +10,7 @@
 <form id="add_rating" action="/add_rating" method="post">
     Movie: <select name="id" required> 
         {{#each movie}}
-        <option value="{{id}}">{{title}}</option>
+        <option value="{{id}}">{{movie_title}}</option>
         {{/each}}
     </select><br>
 

@@ -18,7 +18,7 @@
         <tr class="ratings-table-body">
             {{#each rating_entry}}
             <tr>
-                <td>{{title}}</td>
+                <td>{{movie_title}}</td>
                 <td>{{score}}</td>
                 <td>{{explanation}}</td>
                 <td><button onclick="delete_rating({{ratingID}})">Delete</button><a class="update-button"href="/rating/{{ratingID}}">Update</a></td>
