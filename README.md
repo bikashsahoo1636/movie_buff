@@ -1,4 +1,4 @@
-# Team Project : DYM (Discover Your Movie)
+# Team Project : Movie Buff
 
 ## USER STORY
 
