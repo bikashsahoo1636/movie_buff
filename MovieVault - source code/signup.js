@@ -3,21 +3,26 @@ module.exports = function(){
     var router = express.Router();
     
     function validate__noEmpty(req, res, mysql, error, context, complete){
-        var name = req.body.name
-        name = name.trim();
-        var email = req.body.email
-        email = email.trim();
-        var company = req.body.company
-        company = company.trim();
         var username = req.body.username
         username = username.trim();
+        var email_id = req.body.email_id
+        email_id = email_id.trim();
         var password = req.body.password
         password = password.trim();
-        if (company == ""){
-            company = null;
-        }
-
-        if (name == "" || email == "" || username == "" || password == "" ){
+        var date_of_birth = req.body.date_of_birth;
+        var phone_no = req.body.phone_no
+        phone_no = phone_no.trim();
+        var street = req.body.street
+        street = street.trim();
+        var city = req.body.city
+        city = city.trim();
+        var state = req.body.state
+        state = state.trim();
+        var country = req.body.country
+        country = country.trim();
+        var zipcode = req.body.zipcode
+        zipcode = zipcode.trim();
+        if (username == "" || email_id == "" || username == "" || password == "" ||  phone_no == "" || street == "" || city == "" || state == "" || country == "" || zipcode == ""){
             console.log("empty input");
             error.counter ++;
         }
@@ -27,21 +32,18 @@ module.exports = function(){
     }
 
     function validate__unique(req, res, mysql, e, context, complete){
-        var name = req.body.name
-        name = name.trim();
-        var email = req.body.email
-        email = email.trim();
-        var company = req.body.company
-        company = company.trim();
         var username = req.body.username
         username = username.trim();
+        var email_id = req.body.email_id
+        email_id = email_id.trim();
         var password = req.body.password
         password = password.trim();
-        if (company == ""){
-            company = null;
-        }
+        var date_of_birth = req.body.date_of_birth;
+        var phone_no = req.body.phone_no
+        phone_no = phone_no.trim();
+        
 
-        var sql = "SELECT * From Account INNER JOIN Member on Account.account_ID = Member.account_ID";
+        var sql = "SELECT * From Users ";
         var accounts;
         var i;
         mysql.pool.query(sql, function(error, results, fields){
@@ -56,9 +58,14 @@ module.exports = function(){
                     context.error.push({msg:"**USERNAME already taken**"});
                     e.counter ++;
                 }
-                if (email == results[i].email){
+                if (email_id == results[i].email_id){
                     console.log("**EMAIL already taken**");
                     context.error.push({msg:"**EMAIL already taken**"});
+                    e.counter ++;
+                }
+                if (phone_no == results[i].phone_no){
+                    console.log("**Phone No. already taken**");
+                    context.error.push({msg:"**Phone No. already taken**"});
                     e.counter ++;
                 }
             }
@@ -70,26 +77,32 @@ module.exports = function(){
     }
 
     function validate__complete(req, res, mysql, error, context, complete){
-        var name = req.body.name
-        name = name.trim();
-        var email = req.body.email
-        email = email.trim();
-        var company = req.body.company
-        company = company.trim();
         var username = req.body.username
         username = username.trim();
+        var email_id = req.body.email_id
+        email_id = email_id.trim();
         var password = req.body.password
         password = password.trim();
-        if (company == ""){
-            company = null;
-        }
+        var date_of_birth = req.body.date_of_birth;
+        var phone_no = req.body.phone_no
+        phone_no = phone_no.trim();
+        var street = req.body.street
+        street = street.trim();
+        var city = req.body.city
+        city = city.trim();
+        var state = req.body.state
+        state = state.trim();
+        var country = req.body.country
+        country = country.trim();
+        var zipcode = req.body.zipcode
+        zipcode = zipcode.trim();
                 if (error.counter > 0){
                     console.log("found error: " + error.counter);
                     return res.render('signup', context);
                 }     
                 else{
-                    var sql = "CALL createAccount (?, ?, ?, ?, ?)";
-                    var inserts = [email, name , company , username, password];
+                    var sql = "CALL createAccount (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    var inserts = [username, email_id, password, date_of_birth, phone_no, street, city, state, country, zipcode];
                     sql = mysql.pool.query(sql,inserts, function(error, results, fields){
                         if(error){
                             console.log("*****ERROR in creating account******")

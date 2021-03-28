@@ -41,13 +41,6 @@ app.use('/add_rating', require('./add_rating.js'));
 app.use('/search',require("./searchword.js"));
 app.use('/movies', require('./movies.js'));
 app.use('/singleMovie', require('./singleMovie.js'));
-// app.use('/yourGroups', require('./yourGroups.js'));
-// app.use('/allGroups', require('./allGroups.js'));
-// app.use('/joinGroup', require('./joinGroup.js'));
-// app.use('/leaveGroup', require('./leaveGroup.js'));
-// app.use('/deleteGroup', require('./deleteGroup.js'));
-// app.use('/createGroup', require('./createGroup.js'));
-// app.use('/updateGroup', require('./updateGroup.js'));
 
 app.use( "/logout" ,function(req,res){
   console.log("in logout function");

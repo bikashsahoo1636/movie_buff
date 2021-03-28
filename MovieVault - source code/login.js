@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
     
     function validate(req, res, mysql, username, password){
-        var sql = "SELECT * From Account";
+        var sql = "SELECT * From Users";
         var accounts;
 
         var i;
@@ -20,7 +20,7 @@ module.exports = function(){
                     if (password == results[i].password){
                         found = 1;
                         req.session.loggedin = true;
-                        req.session.username = results[i].account_ID;
+                        req.session.username = results[i].user_id;
                         
                         break;
                     }

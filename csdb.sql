@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2021 at 11:42 PM
+-- Generation Time: Mar 28, 2021 at 08:36 PM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 7.2.24-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `csdb`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount` (IN `username_` VARCHAR(30), IN `email_id_` VARCHAR(40), IN `password_` VARCHAR(30), IN `date_of_birth_` DATE, IN `phone_no_` VARCHAR(10), IN `street_` VARCHAR(20), IN `city_` VARCHAR(20), IN `state_` VARCHAR(20), IN `country_` VARCHAR(20), IN `zipcode_` VARCHAR(11))  BEGIN
+    INSERT INTO Users (username,email_id, `password`, date_of_birth, phone_no)
+    VALUES (username_,email_id_, password_, date_of_birth_, phone_no_); 
+    INSERT INTO Address (street, city, `state`, country, zipcode, user_id)
+    VALUES (street_, city_, state_, country_, zipcode_, (Select user_id From Users u Where u.username=username_) );     
+END$$
+
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `getAvgCriticScore` (`MovieIDInput` INT) RETURNS INT(11) BEGIN
+    DECLARE fin INT(11);
+
+    SELECT AVG(r.score) INTO fin
+    FROM Rating_Entry AS r 
+    INNER JOIN Users AS u ON r.Account_ID = m.Account_ID
+    WHERE (r.MovieID = MovieIDInput
+        AND m.company IS Not NULL);
+        
+    return fin;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -56,7 +84,8 @@ INSERT INTO `Account` (`account_ID`, `password`, `username`) VALUES
 (17, 'wlr', 'jjroc'),
 (18, 'wlr', 'bowjang'),
 (19, 'butterfly_effect', 'beaubeau'),
-(20, 'feet', 'zosh');
+(20, 'feet', 'zosh'),
+(21, '9876543210', '2000-04-20');
 
 -- --------------------------------------------------------
 
@@ -72,6 +101,13 @@ CREATE TABLE `Address` (
   `country` varchar(20) NOT NULL,
   `zipcode` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Address`
+--
+
+INSERT INTO `Address` (`user_id`, `street`, `city`, `state`, `country`, `zipcode`) VALUES
+(1, 'cornlia', 'kharagpur', 'west bengal', 'India', 833102);
 
 -- --------------------------------------------------------
 
@@ -149,6 +185,7 @@ CREATE TABLE `Member` (
 INSERT INTO `Member` (`email`, `name`, `account_ID`, `company`) VALUES
 ('alicia.tran@gmail.com', 'Alicia Tran', 7, 'Times'),
 ('Beau-Beau@gmail.com', 'Beau Smithson', 19, NULL),
+('bikash', 'bikash123@gmail.com', 21, 'qwerty'),
 ('BowJangles@aol.com', 'Toby Tedrow', 18, NULL),
 ('Bubbles@gmail.com', 'Mike Smith', 16, NULL),
 ('Doubtfire@yahoo.com', 'Robin Williams', 15, NULL),
@@ -248,6 +285,58 @@ INSERT INTO `Rating_Entry` (`ratingID`, `movie_id`, `account_ID`, `score`, `expl
 (23, 2, 9, 95, 'hello'),
 (24, 1, 9, 45, 'goody');
 
+--
+-- Triggers `Rating_Entry`
+--
+DELIMITER $$
+CREATE TRIGGER `ovr_score_aud_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalAudiScore = getAvgAudScore(OLD.movie_id)
+    WHERE Movie.movie_id = OLD.movie_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `ovr_score_aud_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalAudiScore = getAvgAudScore(NEW.movie_id)
+    WHERE Movie.movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `ovr_score_aud_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalAudiScore = getAvgAudScore(NEW.movie_id)
+    WHERE Movie.movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `ovr_score_crit_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalCriticScore = getAvgCriticScore(OLD.movie_id)
+    WHERE Movie.movie_id = OLD.movie_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `ovr_score_crit_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
+    WHERE Movie.movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `ovr_score_crit_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
+    UPDATE Movie
+    SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
+    WHERE Movie.movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -263,6 +352,13 @@ CREATE TABLE `Users` (
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `phone_no` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Users`
+--
+
+INSERT INTO `Users` (`user_id`, `username`, `password`, `email_id`, `date_of_birth`, `date_of_registration`, `phone_no`) VALUES
+(1, 'bikash', 'qwerty', 'bikash123@gmail.com', '2000-04-20', '2021-03-28 15:03:54', '9876543210');
 
 --
 -- Indexes for dumped tables
@@ -328,7 +424,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `account_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `account_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `Movie`
 --
@@ -343,7 +439,7 @@ ALTER TABLE `Rating_Entry`
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
