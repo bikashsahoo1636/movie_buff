@@ -19,7 +19,8 @@ module.exports = function(){
 
 
     function getMovie(res, mysql, context, complete, id){
-        var sql = "SELECT director, producer, gross, totalAudiScore, totalCriticScore From Movie WHERE movie_id = ?";
+        var sql = "SELECT movie_duration,release_date,language,country,user_watched From Movie WHERE movie_id = ?"; 
+        // var sql = "SELECT director, producer, gross, totalAudiScore, totalCriticScore From Movie WHERE movie_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){
