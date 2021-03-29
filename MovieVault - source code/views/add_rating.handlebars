@@ -8,14 +8,14 @@
 
 
 <form id="add_rating" action="/add_rating" method="post">
-    Movie: <select name="id" required> 
+    <p>Movie:<p> <select name="id" required> 
         {{#each movie}}
         <option value="{{id}}">{{movie_title}}</option>
         {{/each}}
     </select><br>
 
-    Score (0-100)<input type="number" name="score" required><br>
-    Explanation <input type="text" name="explanation" required><br>
+    <p>Score (0-100)</p><input type="number" name="score" required><br>
+    <p>Explanation</p> <input type="text" name="explanation" required><br>
     
     <input type="submit" value="Submit">
  </form>
