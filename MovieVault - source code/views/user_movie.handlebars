@@ -8,20 +8,16 @@
 
 
 <div class= "rating-container">
-    <h3>My Rating Entries: </h3>
     <table class= "ratings-table">
         <tr>
             <th>Movie You Have Watched: </th>
-            <th>Movies You Want to Watch: </th>
             {{!-- <th>Options</th> --}}
         </tr>
         <tr class="ratings-table-body">
-            {{#each rating_entry}}
+            {{#each watchlist}}
             <tr>
                 <td>{{movie_title}}</td>
-                <td>{{rating_given}}</td>
-                {{!-- <td><button onclick="delete_rating({{ratingID}})">Delete</button><a class="update-button"href="/rating/{{ratingID}}">Update</a></td> --}}
-                {{!-- <td></td> --}}
+                
             </tr>
             {{/each}}
         </tr>
@@ -30,6 +26,24 @@
 </div>
 <br/>
 
+<div class= "rating-container">
+    <table class= "ratings-table">
+        <tr>
+            <th>Movie You Want To Watch: </th>
+            {{!-- <th>Options</th> --}}
+        </tr>
+        <tr class="ratings-table-body">
+            {{#each wishlist}}
+            <tr>
+                <td>{{movie_title}}</td>
+                
+            </tr>
+            {{/each}}
+        </tr>
+    </table>
+
+</div>
+<br/>
     
 
 
