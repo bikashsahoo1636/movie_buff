@@ -36,7 +36,7 @@ app.use('/signup', require("./signup.js"));
 app.use('/rating', require('./rating.js'));
 app.use('/profile', require('./profile.js'));
 app.use('/add_rating', require('./add_rating.js'));
-
+app.use('/user_movie', require('./user_movie.js'));
 
 app.use('/search',require("./searchword.js"));
 app.use('/movies', require('./movies.js'));
