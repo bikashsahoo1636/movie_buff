@@ -51,45 +51,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Account`
---
-
-CREATE TABLE `Account` (
-  `account_ID` int(11) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Account`
---
-
-INSERT INTO `Account` (`account_ID`, `password`, `username`) VALUES
-(1, 'asdf', 't.nguyen'),
-(2, 'abcd', 'r.le'),
-(3, '12345', 'tankman'),
-(4, 'abc123', 'ianJohn'),
-(5, 'FRaNK', 'kevFilm'),
-(6, 'abcd1234', 'MCRem'),
-(7, 'asjdfl', 'Atran'),
-(8, 'wlr', 'HiYi'),
-(9, 'feet', 'QT'),
-(10, 'asdf', 'Katie_Mac'),
-(11, 'abcd', 'SlickG'),
-(12, '12345', 'MaryPoppin'),
-(13, 'abc123', 'Marty'),
-(14, 'FRaNK', 'LegenWill'),
-(15, 'abcd1234', 'RobinWill'),
-(16, 'fff', 'Bubbles'),
-(17, 'wlr', 'jjroc'),
-(18, 'wlr', 'bowjang'),
-(19, 'butterfly_effect', 'beaubeau'),
-(20, 'feet', 'zosh'),
-(21, '9876543210', '2000-04-20');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Address`
 --
 
@@ -114,42 +75,62 @@ INSERT INTO `Address` (`user_id`, `street`, `city`, `state`, `country`, `zipcode
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Cast`
+-- Table structure for table `User_Movie_Detail`
 --
 
-CREATE TABLE `Cast` (
-  `movie_id` int(11) NOT NULL,
-  `actorName` varchar(255) NOT NULL
+CREATE TABLE `User_Movie_Detail` (
+  `user_id` INT(11) NOT NULL,
+  `movie_id` INT(11) NOT NULL,
+  `review_given` VARCHAR(255),
+  `is_watched` BIT NOT NULL DEFAULT 0 ,
+  `in_wishlist` BIT NOT NULL DEFAULT 0,
+  `rating_given` INT(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Cast`
 --
 
-INSERT INTO `Cast` (`movie_id`, `actorName`) VALUES
-(1, 'Cho Yeo-jeong'),
-(1, 'Choi Woo-shik'),
-(1, 'Park So-dam'),
-(2, 'Chris Evans'),
-(2, 'Josh Brolin'),
-(2, 'Robert Downey Jr.'),
-(2, 'Scarlet Johansson'),
-(3, 'Lupita Nyongo'),
-(3, 'Winston Duke'),
-(4, 'Chris Evans'),
-(4, 'Daniel Craig'),
-(5, 'Tim Allen'),
-(5, 'Tom Hanks'),
-(6, 'Al Pacino'),
-(6, 'Joe Pesci'),
-(6, 'Robert Deniro'),
-(7, 'Timothee Chalamet'),
-(8, 'Diana Silvers'),
-(8, 'Kaitlyn Dever'),
-(9, 'Awkwafina'),
-(9, 'Tzi Ma'),
-(10, 'Adam Driver'),
-(10, 'Scarlet Johansson');
+INSERT INTO `User_Movie_Detail` (`user_id`,`movie_id`,`review_given`,`rating_given`) VALUES
+(2,1,'Fantastic Movie',5); 
+--
+-- Table structure for table `Cast`
+--
+
+CREATE TABLE `Cast` (
+  `movie_id` int(11) NOT NULL,
+  `cast_and_crew_name` varchar(255) NOT NULL,
+  `role_in_movie` VARCHAR(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Cast`
+--
+
+INSERT INTO `Cast` (`movie_id`, `cast_and_crew_name`,`role_in_movie`) VALUES
+(1, 'Cho Yeo-jeong','Actor'),
+(1, 'Choi Woo-shik','Actress'),
+(1, 'Park So-dam','Director');
+-- (2, 'Chris Evans'),
+-- (2, 'Josh Brolin'),
+-- (2, 'Robert Downey Jr.'),
+-- (2, 'Scarlet Johansson'),
+-- (3, 'Lupita Nyongo'),
+-- (3, 'Winston Duke'),
+-- (4, 'Chris Evans'),
+-- (4, 'Daniel Craig'),
+-- (5, 'Tim Allen'),
+-- (5, 'Tom Hanks'),
+-- (6, 'Al Pacino'),
+-- (6, 'Joe Pesci'),
+-- (6, 'Robert Deniro'),
+-- (7, 'Timothee Chalamet'),
+-- (8, 'Diana Silvers'),
+-- (8, 'Kaitlyn Dever'),
+-- (9, 'Awkwafina'),
+-- (9, 'Tzi Ma'),
+-- (10, 'Adam Driver'),
+-- (10, 'Scarlet Johansson');
 
 -- --------------------------------------------------------
 
@@ -166,6 +147,7 @@ CREATE TABLE `Genre` (
   `Sci_Fi` tinyint(1) DEFAULT '0',
   `Thriller` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `Genre`
@@ -184,6 +166,7 @@ INSERT INTO `Genre` (`movie_id`, `Drama`, `Comedy`, `Horror`, `Adventure`, `Sci_
 (10, 0, 0, 0, 0, 0, 1),
 (11, 0, 0, 0, 1, 0, 1),
 (12, 1, 1, 0, 0, 0, 0);
+
 
 -- --------------------------------------------------------
 
@@ -207,6 +190,7 @@ CREATE TABLE `Movie` (
 --
 -- Dumping data for table `Movie`
 --
+
 
 INSERT INTO `Movie` (`movie_id`, `movie_duration`, `trailer_link`, `movie_title`, `release_date`, `language`, `country`, `user_watched`, `description`, `streaming_platform`) VALUES
 (1, '132 min', NULL, 'Parasite', '30 May 2019', 'English', 'America', 2, 'The struggling Kim family sees an opportunity when the son starts working for the wealthy Park family. Soon, all of them find a way to work within the same household and start living a parasitic life.', 'Netflix'),
@@ -235,6 +219,7 @@ INSERT INTO `Movie` (`movie_id`, `movie_duration`, `trailer_link`, `movie_title`
 (24, '132 min', NULL, 'Assassins', '06 Oct 1995', 'English,Dutch,Spanish', 'France, USA', 0, 'Professional hit-man Robert Rath wants to fulfill a few more contracts before retiring but unscrupulous ambitious newcomer hit-man Miguel Bain keeps killing Rath\'s targets.', NULL),
 (25, '111 min', NULL, 'Powder', '27 Oct 1995', 'English', 'USA', 0, 'An off the charts genius who is home schooled and shunned after his last relative dies shows the unconscious residents of his town about connection awareness and the generosity of the spirit.', NULL);
 
+
 -- --------------------------------------------------------
 
 --
@@ -255,81 +240,81 @@ CREATE TABLE `Rating_Entry` (
 
 INSERT INTO `Rating_Entry` (`ratingID`, `movie_id`, `account_ID`, `score`, `explanation`) VALUES
 (1, 1, 1, 90, 'Amazing Film'),
-(2, 2, 2, 98, 'Great way to end the series.'),
-(3, 3, 3, 78, 'Not as good as Get Out. Entertaining but questionable at times.'),
-(4, 4, 5, 94, 'A great who-done-it film.'),
-(5, 5, 2, 99, 'Pixar does it again'),
-(6, 5, 3, 84, 'Great for the family, but not as good as previous installments.'),
-(7, 6, 4, 89, 'Martin Scorsese is masterful.'),
-(8, 7, 7, 89, 'Amazing film'),
-(9, 8, 6, 89, 'Funny and original'),
-(10, 9, 5, 94, 'Very good film.'),
-(11, 10, 8, 89, 'Scarlet Johansson gives an amazing performance.'),
+-- (2, 2, 2, 98, 'Great way to end the series.'),
+-- (3, 3, 3, 78, 'Not as good as Get Out. Entertaining but questionable at times.'),
+-- (4, 4, 5, 94, 'A great who-done-it film.'),
+-- (5, 5, 2, 99, 'Pixar does it again'),
+-- (6, 5, 3, 84, 'Great for the family, but not as good as previous installments.'),
+-- (7, 6, 4, 89, 'Martin Scorsese is masterful.'),
+-- (8, 7, 7, 89, 'Amazing film'),
+-- (9, 8, 6, 89, 'Funny and original'),
+-- (10, 9, 5, 94, 'Very good film.'),
+-- (11, 10, 8, 89, 'Scarlet Johansson gives an amazing performance.'),
 (12, 1, 11, 94, 'Outstanding Film'),
-(13, 2, 12, 96, 'Marvel does it again'),
-(14, 3, 13, 67, 'Made no sense to me.'),
-(15, 4, 15, 96, 'Myster films are the best!.'),
-(16, 5, 12, 94, 'Made me laugh throughout.'),
-(17, 6, 13, 94, 'Gangstas are always a great time at the movies.'),
-(18, 6, 14, 89, 'Martin Scorsese masters his craft in this one.'),
-(19, 7, 17, 84, 'Fantastic film and story'),
-(20, 8, 16, 72, 'It was aight'),
-(21, 9, 15, 78, 'Just average.'),
-(22, 10, 18, 84, 'Scarlet Johansson and Adam Driver are amazing together.'),
-(23, 2, 9, 95, 'hello'),
+-- (13, 2, 12, 96, 'Marvel does it again'),
+-- (14, 3, 13, 67, 'Made no sense to me.'),
+-- (15, 4, 15, 96, 'Myster films are the best!.'),
+-- (16, 5, 12, 94, 'Made me laugh throughout.'),
+-- (17, 6, 13, 94, 'Gangstas are always a great time at the movies.'),
+-- (18, 6, 14, 89, 'Martin Scorsese masters his craft in this one.'),
+-- (19, 7, 17, 84, 'Fantastic film and story'),
+-- (20, 8, 16, 72, 'It was aight'),
+-- (21, 9, 15, 78, 'Just average.'),
+-- (22, 10, 18, 84, 'Scarlet Johansson and Adam Driver are amazing together.'),
+-- (23, 2, 9, 95, 'hello'),
 (24, 1, 9, 45, 'goody');
 
 --
 -- Triggers `Rating_Entry`
 --
-DELIMITER $$
-CREATE TRIGGER `ovr_score_aud_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalAudiScore = getAvgAudScore(OLD.movie_id)
-    WHERE Movie.movie_id = OLD.movie_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `ovr_score_aud_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalAudiScore = getAvgAudScore(NEW.movie_id)
-    WHERE Movie.movie_id = NEW.movie_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `ovr_score_aud_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalAudiScore = getAvgAudScore(NEW.movie_id)
-    WHERE Movie.movie_id = NEW.movie_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `ovr_score_crit_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalCriticScore = getAvgCriticScore(OLD.movie_id)
-    WHERE Movie.movie_id = OLD.movie_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `ovr_score_crit_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
-    WHERE Movie.movie_id = NEW.movie_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `ovr_score_crit_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
-    UPDATE Movie
-    SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
-    WHERE Movie.movie_id = NEW.movie_id;
-END
-$$
-DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_aud_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalAudiScore = getAvgAudScore(OLD.movie_id)
+--     WHERE Movie.movie_id = OLD.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_aud_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalAudiScore = getAvgAudScore(NEW.movie_id)
+--     WHERE Movie.movie_id = NEW.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_aud_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalAudiScore = getAvgAudScore(NEW.movie_id)
+--     WHERE Movie.movie_id = NEW.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_crit_delete` AFTER DELETE ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalCriticScore = getAvgCriticScore(OLD.movie_id)
+--     WHERE Movie.movie_id = OLD.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_crit_insert` AFTER INSERT ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
+--     WHERE Movie.movie_id = NEW.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
+-- DELIMITER $$
+-- CREATE TRIGGER `ovr_score_crit_update` AFTER UPDATE ON `Rating_Entry` FOR EACH ROW BEGIN
+--     UPDATE Movie
+--     SET totalCriticScore = getAvgCriticScore(NEW.movie_id)
+--     WHERE Movie.movie_id = NEW.movie_id;
+-- END
+-- $$
+-- DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -361,13 +346,6 @@ INSERT INTO `Users` (`user_id`, `username`, `password`, `email_id`, `date_of_bir
 --
 
 --
--- Indexes for table `Account`
---
-ALTER TABLE `Account`
-  ADD PRIMARY KEY (`account_ID`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
 -- Indexes for table `Address`
 --
 ALTER TABLE `Address`
@@ -377,7 +355,7 @@ ALTER TABLE `Address`
 -- Indexes for table `Cast`
 --
 ALTER TABLE `Cast`
-  ADD PRIMARY KEY (`movie_id`,`actorName`);
+  ADD PRIMARY KEY (`movie_id`,`cast_and_crew_name`);
 
 --
 -- Indexes for table `Genre`
@@ -396,8 +374,8 @@ ALTER TABLE `Movie`
 --
 ALTER TABLE `Rating_Entry`
   ADD PRIMARY KEY (`ratingID`),
-  ADD KEY `movieID` (`movie_id`),
-  ADD KEY `account_ID` (`account_ID`);
+  ADD KEY `movieID` (`movie_id`);
+  -- ADD KEY `account_ID` (`account_ID`);
 
 --
 -- Indexes for table `Users`
@@ -409,12 +387,6 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `Account`
---
-ALTER TABLE `Account`
-  MODIFY `account_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
---
 -- AUTO_INCREMENT for table `Movie`
 --
 ALTER TABLE `Movie`
@@ -438,6 +410,27 @@ ALTER TABLE `Users`
 --
 ALTER TABLE `Address`
   ADD CONSTRAINT `Address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`);
+
+
+--
+-- Constraints for table `Cast`
+--
+ALTER TABLE `Cast`
+  ADD CONSTRAINT `Cast_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
+
+--
+-- Constraints for table `Genre`
+--
+ALTER TABLE `Genre`
+  ADD CONSTRAINT `Genre_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
+
+--
+-- Constraints for table `Rating_Entry`
+--
+ALTER TABLE `Rating_Entry`
+  ADD CONSTRAINT `Rating_Entry_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
+  -- ADD CONSTRAINT `Rating_Entry_ibfk_2` FOREIGN KEY (`account_ID`) REFERENCES `Account` (`account_ID`) ON DELETE CASCADE;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

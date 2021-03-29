@@ -48,14 +48,14 @@ module.exports = function(){
     }
 
     function getCast(res, mysql, context, complete, id){
-        var sql = "SELECT actorName From Cast WHERE movie_id = ?";
+        var sql = "SELECT cast_and_crew_name,role_in_movie From Cast WHERE movie_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){
             res.write(JSON.stringify(error));
             res.end();
         }
-
+            console.log(results);
             context.cast = results;
             console.log("results: ", results[0]);
             complete();
