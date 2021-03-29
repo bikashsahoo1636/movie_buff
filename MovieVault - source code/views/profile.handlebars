@@ -1,20 +1,20 @@
 <html>
 
-<h1> {{username.username}} ({{status}}) </h1>
+<h1> {{username.username}} </h1>
 
 <h3> <a href= "/add_rating" > CREATE Rating Entry </a> </h3>
 
 
-<div class= "rating-container">
+<div class= "">
     <h3>My Rating Entries: </h3>
-    <table class= "ratings-table">
+    <table class= "">
         <tr>
             <th>Movie: </th>
             <th>Rating Given: </th>
             <th>Review Given</th>
             {{!-- <th>Options</th> --}}
         </tr>
-        <tr class="ratings-table-body">
+        <tr class="">
             {{#each rating_entry}}
             <tr>
                 <td>{{movie_title}}</td>

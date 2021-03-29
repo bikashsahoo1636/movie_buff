@@ -7,7 +7,19 @@ a {
 
 body {
     margin: 0;
+    background-image: url('./background.jpg');
 }
+
+h1, h2, h3, h4, h5, h6, p, .btn,label,li,ul,a,th,td{
+    color : rgb(212, 189, 191);
+    border-color: rgb(212,189,191);
+}
+
+table,th,tr {
+    border: 1px solid rgb(212,189,191);
+}
+
+
 ul {
     list-style-type: none;
 }
