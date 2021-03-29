@@ -10,7 +10,7 @@ body {
     background-image: url('./background.jpg');
 }
 
-h1, h2, h3, h4, h5, h6, p, .btn,label,li,ul,a,th,td{
+h1, h2, h3, h4, h5, h6, p, label,li,ul,a,th,td{
     color : rgb(212, 189, 191);
     border-color: rgb(212,189,191);
 }

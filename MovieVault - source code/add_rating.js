@@ -2,6 +2,10 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
     
+
+    // function addToWatchList() {
+    //     console.log("hello i will add your movie to watch list");
+    // }
     function getMovies(res, mysql, context){
         mysql.pool.query("SELECT movie_id as id, movie_title From Movie", function(error, results, fields){
             if(error){
@@ -16,9 +20,22 @@ module.exports = function(){
     }
 
     function addRating(req,res,mysql,id){
-        var sql = "INSERT INTO User_Movie_Detail(user_id,movie_id,review_given,rating_given) VALUES (?,?,?,?)";
-        // var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?)";       
-        var inserts = [id, req.body.id,req.body.explanation,req.body.score,];
+        // console.log('-------------------------------------------------------------')
+        // console.log(req.body,id);
+        // console.log('--------------------------------------------------------------')
+        var sql;
+        var addToWatchedList = 0;
+        var addToWishList = 0;
+        if(req.body.addToWatchedList == 'true') {
+            addToWatchedList = 1;
+        } 
+        if(req.body.addToWishList == 'true') {
+            addToWishList = 1;
+        }
+        var sql = "INSERT INTO User_Movie_Detail(user_id,movie_id,review_given,rating_given,is_watched,in_wishlist) VALUES (?,?,?,?,?,?)";
+        // var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?,?,?)";       
+        var inserts = [id, req.body.id,req.body.explanation,req.body.score,addToWatchedList,addToWishList];
+        console.log("inserts is: ",inserts);
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log("*****ERROR******")
