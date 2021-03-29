@@ -7,12 +7,20 @@
     <table class= "cast-info-table">
         <tr>
             <th>Cast: </th>
+            <th>Role In Movie: </th>
         </tr>
+        {{!-- <tr> --}}
+            {{!-- <th>Role In Movie: </th> --}}
+        {{!-- </tr> --}}
         <tr class="cast-info-table-body">
             {{#each cast}}
             <tr>
-                <td>{{actorName}}</td>
+                <td>{{cast_and_crew_name}}</td>
+                <td>{{role_in_movie}}</td>
             </tr>
+            {{!-- <tr> --}}
+                
+            {{!-- </tr> --}}
             {{/each}}
         </tr>
 

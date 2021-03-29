@@ -16,9 +16,9 @@ module.exports = function(){
     }
 
     function addRating(req,res,mysql,id){
-        var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?)";
-                
-        var inserts = [req.body.id, currAccount, req.body.score, req.body.explanation];
+        var sql = "INSERT INTO User_Movie_Detail(user_id,movie_id,review_given,rating_given) VALUES (?,?,?,?)";
+        // var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?)";       
+        var inserts = [id, req.body.id,req.body.explanation,req.body.score,];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log("*****ERROR******")
@@ -41,7 +41,9 @@ module.exports = function(){
     }
 
     function checkValid(req,res,mysql, id){
-        var sql = "SELECT * From Rating_Entry Where account_ID=?";
+        console.log('id is',id);
+        var sql = "SELECT * FROM User_Movie_Detail WHERE user_id = ?";
+        // var sql = "SELECT * From Rating_Entry Where account_ID=?";
         var inserts = [id];
 
         var context = {};
@@ -67,7 +69,6 @@ module.exports = function(){
                 found ++;
                 
             }
-
             if (found > 0){
                 return getMovies(res, mysql, context);
             }

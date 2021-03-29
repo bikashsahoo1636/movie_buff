@@ -14,7 +14,7 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-
+            console.log("Results: ",results);
             for (i=0; i < results.length ; i++){
                 if (username == results[i].username){
                     if (password == results[i].password){
@@ -43,10 +43,12 @@ module.exports = function(){
         currAccount = req.app.locals.currAccount;
         if (req.session.loggedin == true){
             res.redirect("profile")
+            console.log('user already logged in');
         }
         else{
             var context = {};
             var mysql = req.app.get('mysql');
+            console.log('user not logged in');
             res.render("login");
         }
     });
