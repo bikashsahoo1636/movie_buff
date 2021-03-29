@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2021 at 04:04 PM
+-- Generation Time: Mar 29, 2021 at 04:31 PM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 7.2.24-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -166,6 +166,24 @@ CREATE TABLE `Genre` (
   `Sci_Fi` tinyint(1) DEFAULT '0',
   `Thriller` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Genre`
+--
+
+INSERT INTO `Genre` (`movie_id`, `Drama`, `Comedy`, `Horror`, `Adventure`, `Sci_Fi`, `Thriller`) VALUES
+(1, 1, 1, 0, 0, 0, 1),
+(2, 0, 1, 0, 1, 0, 0),
+(3, 0, 1, 0, 1, 1, 0),
+(4, 0, 1, 0, 0, 0, 0),
+(5, 1, 1, 0, 0, 0, 0),
+(6, 0, 1, 0, 0, 0, 0),
+(7, 1, 1, 0, 0, 0, 1),
+(8, 1, 1, 0, 0, 0, 0),
+(9, 1, 1, 0, 0, 0, 0),
+(10, 0, 0, 0, 0, 0, 1),
+(11, 0, 0, 0, 1, 0, 1),
+(12, 1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
