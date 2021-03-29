@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2021 at 08:36 PM
+-- Generation Time: Mar 29, 2021 at 04:04 PM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 7.2.24-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `csdb`
+-- Database: `movie_new`
 --
 
 DELIMITER $$
@@ -107,7 +107,9 @@ CREATE TABLE `Address` (
 --
 
 INSERT INTO `Address` (`user_id`, `street`, `city`, `state`, `country`, `zipcode`) VALUES
-(1, 'cornlia', 'kharagpur', 'west bengal', 'India', 833102);
+(1, 'cornlia', 'kharagpur', 'west bengal', 'India', 833102),
+(2, 'kgp', 'jsr', 'jk', 'india', 876543),
+(3, 'asd', 'dsa', 'fdsa', 'india', 123543);
 
 -- --------------------------------------------------------
 
@@ -168,69 +170,52 @@ CREATE TABLE `Genre` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Member`
---
-
-CREATE TABLE `Member` (
-  `email` varchar(70) NOT NULL,
-  `name` varchar(70) NOT NULL,
-  `account_ID` int(11) NOT NULL,
-  `company` varchar(70) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Member`
---
-
-INSERT INTO `Member` (`email`, `name`, `account_ID`, `company`) VALUES
-('alicia.tran@gmail.com', 'Alicia Tran', 7, 'Times'),
-('Beau-Beau@gmail.com', 'Beau Smithson', 19, NULL),
-('bikash', 'bikash123@gmail.com', 21, 'qwerty'),
-('BowJangles@aol.com', 'Toby Tedrow', 18, NULL),
-('Bubbles@gmail.com', 'Mike Smith', 16, NULL),
-('Doubtfire@yahoo.com', 'Robin Williams', 15, NULL),
-('heidi.yi@aol.com', 'Heidi Yi', 8, 'Film Galore'),
-('IAmLegend@hotmail.com', 'Will Smith', 14, NULL),
-('ian.johnson@hotmail.com', 'Ian Johnson', 4, 'Huffington Post'),
-('J-Roc@gmail.com', 'Jonathan Torrens', 17, NULL),
-('james.tank@gmail.com', 'James Tank', 3, 'New York Times'),
-('katie.mac@yahoo.com', 'Katie Mac', 10, 'Film Noir'),
-('kevin.film@yahoo.com', 'Kevin Film', 5, 'IMDB'),
-('MartyFarty@gmail.com', 'Martin Smith', 13, NULL),
-('MaryIsPoppin@yahoo.com', 'Mary Poppins', 12, NULL),
-('quentin.tarantino@gmail.com', 'Quentin Tarantino', 9, 'The Shop'),
-('remi.lam@gmail.com', 'Remi Lam', 6, 'New Yorker'),
-('robert.le@yahoo.com', 'Rober Le', 2, 'LA Times'),
-('SlickG@gmail.com', 'Kade Gonzalez', 11, NULL),
-('tracy.nguyen@gmail.com', 'Tracy Nugyen', 1, 'Times'),
-('Zosh@yahoo.com', 'Percy Mescudi', 20, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Movie`
 --
 
 CREATE TABLE `Movie` (
   `movie_id` int(11) NOT NULL,
-  `movie_duration` time NOT NULL,
-  `trailer_link` VARCHAR(255),
+  `movie_duration` varchar(30) NOT NULL,
+  `trailer_link` varchar(255) DEFAULT NULL,
   `movie_title` varchar(255) NOT NULL,
-  `release_date` DATE NOT NULL,
+  `release_date` varchar(30) NOT NULL,
   `language` varchar(40) NOT NULL,
   `country` varchar(40) NOT NULL,
-  `user_watched` INT DEFAULT 0,
-  `description` VARCHAR(255) NOT NULL,
-  `streaming_platform` varchar(40)
+  `user_watched` int(11) DEFAULT '0',
+  `description` varchar(255) NOT NULL,
+  `streaming_platform` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Movie`
 --
 
-INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `trailer_link`, `release_date`, `language`, `country`,`user_watched`, `description`, `streaming_platform`) VALUES
-(1, 'Parasite', '00:00:00', NULL, '2008-11-11', 'English', 'America', 2, 'Amazing Movie', 'Netflix');
-
+INSERT INTO `Movie` (`movie_id`, `movie_duration`, `trailer_link`, `movie_title`, `release_date`, `language`, `country`, `user_watched`, `description`, `streaming_platform`) VALUES
+(1, '132 min', NULL, 'Parasite', '30 May 2019', 'English', 'America', 2, 'The struggling Kim family sees an opportunity when the son starts working for the wealthy Park family. Soon, all of them find a way to work within the same household and start living a parasitic life.', 'Netflix'),
+(2, '01:21:00', NULL, 'Toy Story', '1995-11-25', 'English', 'USA', 0, 'A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy\'s room.', NULL),
+(3, '104 min', NULL, 'Jumanji', '15 Dec 1995', 'English,French', 'USA', 0, 'When two kids find and play a magical board game, they release a man trapped in it for decades - and a host of dangers that can only be stopped by finishing the game', NULL),
+(4, '101 min', NULL, 'Grumpier Old Men', '22 Dec 1995', 'English,German', 'USA', 0, 'John and Max resolve to save their beloved bait shop from turning into an Italian restaurant, just as its new female owner catches Max\'s attention.', NULL),
+(5, '121 min', NULL, 'Waiting to Exhale', '22 Dec 1995', 'English', 'USA', 0, 'Based on Terry McMillan\'s novel, this film follows four very different African-American women and their relationships with the male gender.', NULL),
+(6, '106 min', NULL, 'Father of the Bride Part II', '08 Dec 1995', 'English', 'USA', 0, 'George Banks must deal not only with the pregnancy of his daughter, but also with the unexpected pregnancy of his wife.', NULL),
+(7, '170 min', NULL, 'Heat', '15 Dec 1995', 'English', 'USA', 0, 'A group of professional bank robbers start to feel the heat from police when they unknowingly leave a clue at their latest heist.', NULL),
+(8, '100 min', NULL, 'Now and Then', '20 Oct 1995', 'English', 'USA', 0, 'Four 12-year-old girls grow up together during an eventful small-town summer in 1970.', NULL),
+(9, '96 min', NULL, 'Tom and Huck', '22 Dec 1995', 'English', 'USA', 0, 'Two best friends witness a murder and embark on a series of adventures in order to prove the innocence of the man wrongly accused of the crime.', NULL),
+(10, '111  min', NULL, 'Sudden Death', '22 Dec 1995', 'English', 'USA', 0, 'A former fireman takes on a group of terrorists holding the Vice President and others hostage during the seventh game of the NHL Stanley Cup finals.', NULL),
+(11, '130 min', NULL, 'GoldenEye', '17 Nov 1995', 'English', 'USA', 0, 'Years after a friend and fellow 00 agent is killed on a joint mission, a secret space based weapons program known as \\"GoldenEye\\" is stolen. James Bond sets out to stop a Russian crime syndicate from using the weapon.', NULL),
+(12, '114 min', NULL, 'The American President', '17 Nov 1995', 'English,Spanish,French', 'USA', 0, 'A widowed U.S. President running for reelection and an environmental lobbyist fall in love. It\'s all above-board, but \\"politics is perception,\\" and sparks fly anyway.', NULL),
+(13, '85 min', NULL, 'Dracula: Dead and Loving It', '22 Dec 1995', 'English', 'France,USA', 0, 'Mel Brooks \' parody of the classic vampire story and its famous film adaptations.', NULL),
+(14, '95 min', NULL, 'Balto', '22 Dec 1995', 'English', 'USA', 0, 'An outcast Husky risks his life with other sled dogs to prevent a deadly epidemic from ravaging Nome, Alaska.', NULL),
+(15, '192 min', NULL, 'Nixon', '05 Jan 1996', 'English,Russian,Mandarin', 'USA', 0, 'A biographical story of former U.S. President Richard Nixon, from his days as a young boy, to his eventual Presidency, which ended in shame.', NULL),
+(16, '124 min', NULL, 'Cutthroat Island', '22 Dec 1995', 'English', 'France,Italy,Germany,USA', 0, 'A female pirate and her companion race against their rivals to find a hidden island that contains a fabulous treasure.', NULL),
+(17, '178 min', NULL, 'Casino', '22 Nov 1995', 'English', 'France, USA', 0, 'A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive, compete against each other over a gambling empire, and over a fast living and fast loving socialite.', NULL),
+(18, '136 min', NULL, 'Sense and Sensibility', '26 Jan 1996', 'English,French', 'USA, UK', 0, 'Rich Mr. Dashwood dies, leaving his second wife and her three daughters poor by the rules of inheritance. The two eldest daughters are the title opposites.', NULL),
+(19, '98 min', NULL, 'Four Rooms', '25 Dec 1995', 'English', 'USA', 0, 'Four interlocking tales that take place in a fading hotel on New Year\'s Eve.', NULL),
+(20, '90 min', NULL, 'Ace Ventura: When Nature Calls', '10 Nov 1995', 'English', 'US', 0, 'Ace Ventura, Pet Detective, returns from a spiritual quest to investigate the disappearance of a rare white bat, the sacred animal of a tribe in Africa.', NULL),
+(21, '110 min', NULL, 'Money Train', '22 Nov 1995', 'English', 'USA', 0, 'A vengeful New York City transit cop decides to steal a trainload of subway fares. His foster brother, a fellow cop, tries to protect him.', NULL),
+(22, '105 min', NULL, 'Get Shorty', '20 Oct 1995', 'English', 'USA', 0, 'A mobster travels to Hollywood to collect a debt, and discovers that the movie business is much the same as his current job.', NULL),
+(23, '123 min', NULL, 'Copycat', '27 Oct 1995', 'English', 'USA', 0, 'An agoraphobic psychologist and a female detective must work together to take down a serial killer who copies serial killers from the past.', NULL),
+(24, '132 min', NULL, 'Assassins', '06 Oct 1995', 'English,Dutch,Spanish', 'France, USA', 0, 'Professional hit-man Robert Rath wants to fulfill a few more contracts before retiring but unscrupulous ambitious newcomer hit-man Miguel Bain keeps killing Rath\'s targets.', NULL),
+(25, '111 min', NULL, 'Powder', '27 Oct 1995', 'English', 'USA', 0, 'An off the charts genius who is home schooled and shunned after his last relative dies shows the unconscious residents of his town about connection awareness and the generosity of the spirit.', NULL);
 
 -- --------------------------------------------------------
 
@@ -349,7 +334,9 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`user_id`, `username`, `password`, `email_id`, `date_of_birth`, `date_of_registration`, `phone_no`) VALUES
-(1, 'bikash', 'qwerty', 'bikash123@gmail.com', '2000-04-20', '2021-03-28 15:03:54', '9876543210');
+(1, 'bikash', 'qwerty', 'bikash123@gmail.com', '2000-04-20', '2021-03-28 15:03:54', '9876543210'),
+(2, 'bikash1', 'qwerty', 'bikash12@gmail.com', '2000-03-20', '2021-03-29 08:02:37', '9876987612'),
+(3, 'Bikash124', 'qwerty', 'bikash124@gmail.com', '2000-04-20', '2021-03-29 10:19:59', '9876543121');
 
 --
 -- Indexes for dumped tables
@@ -379,13 +366,6 @@ ALTER TABLE `Cast`
 --
 ALTER TABLE `Genre`
   ADD PRIMARY KEY (`movie_id`);
-
---
--- Indexes for table `Member`
---
-ALTER TABLE `Member`
-  ADD PRIMARY KEY (`email`),
-  ADD KEY `account_ID` (`account_ID`);
 
 --
 -- Indexes for table `Movie`
@@ -420,7 +400,7 @@ ALTER TABLE `Account`
 -- AUTO_INCREMENT for table `Movie`
 --
 ALTER TABLE `Movie`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `Rating_Entry`
 --
@@ -430,7 +410,7 @@ ALTER TABLE `Rating_Entry`
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -440,31 +420,6 @@ ALTER TABLE `Users`
 --
 ALTER TABLE `Address`
   ADD CONSTRAINT `Address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`);
-
---
--- Constraints for table `Cast`
---
-ALTER TABLE `Cast`
-  ADD CONSTRAINT `Cast_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
-
---
--- Constraints for table `Genre`
---
-ALTER TABLE `Genre`
-  ADD CONSTRAINT `Genre_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`);
-
---
--- Constraints for table `Member`
---
-ALTER TABLE `Member`
-  ADD CONSTRAINT `Member_ibfk_1` FOREIGN KEY (`account_ID`) REFERENCES `Account` (`account_ID`) ON DELETE CASCADE;
-
---
--- Constraints for table `Rating_Entry`
---
-ALTER TABLE `Rating_Entry`
-  ADD CONSTRAINT `Rating_Entry_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Movie` (`movie_id`),
-  ADD CONSTRAINT `Rating_Entry_ibfk_2` FOREIGN KEY (`account_ID`) REFERENCES `Account` (`account_ID`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
