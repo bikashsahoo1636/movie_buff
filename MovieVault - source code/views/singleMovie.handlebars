@@ -58,14 +58,14 @@
     <h3>Reviews: </h3>
     <table class= "movie-ratings-table">
         <tr>
-            <th>Score: </th>
-            <th>Explanation </th>
+            <th>Rating: </th>
+            <th>Review: </th>
         </tr>
         <tr class="movie-ratings-table-body">
             {{#each rating_entry}}
             <tr>
-                <td>{{score}}</td>
-                <td>{{explanation}}</td>
+                <td>{{rating_given}}</td>
+                <td>{{review_given}}</td>
             </tr>
             {{/each}}
         </tr>

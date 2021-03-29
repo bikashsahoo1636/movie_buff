@@ -31,6 +31,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `createAccount` (IN `username_` VARC
     VALUES (street_, city_, state_, country_, zipcode_, (Select user_id From Users u Where u.username=username_) );     
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addRatings` (IN `user_id_` INT(11), IN `movie_id_` INT(40), IN `review_given_` VARCHAR(255), IN `rating_given_` INT(11), IN `is_watched_` BIT(1), IN `in_wishlist_` BIT(1))  BEGIN
+    INSERT INTO User_Movie_Review_Detail (user_id,movie_id, review_given, rating_given)
+    VALUES (user_id_,movie_id_, review_given_, rating_given_); 
+    INSERT INTO User_Movie_Detail (user_id,movie_id,is_watched,in_wishlist)
+    VALUES (user_id_,movie_id_,is_watched_,in_wishlist_ );     
+END$$
+
 --
 -- Functions
 --
