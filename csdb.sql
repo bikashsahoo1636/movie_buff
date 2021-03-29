@@ -213,33 +213,24 @@ INSERT INTO `Member` (`email`, `name`, `account_ID`, `company`) VALUES
 
 CREATE TABLE `Movie` (
   `movie_id` int(11) NOT NULL,
-  `movie_title` varchar(255) NOT NULL,
   `movie_duration` time NOT NULL,
-  `director` varchar(255) NOT NULL,
-  `producer` varchar(255) NOT NULL,
+  `trailer_link` VARCHAR(255),
+  `movie_title` varchar(255) NOT NULL,
+  `release_date` DATE NOT NULL,
   `language` varchar(40) NOT NULL,
   `country` varchar(40) NOT NULL,
-  `gross` int(11) NOT NULL,
-  `streaming_platform` varchar(40) NOT NULL,
-  `totalAudiScore` int(11) NOT NULL DEFAULT '0',
-  `totalCriticScore` int(11) NOT NULL DEFAULT '0'
+  `user_watched` INT DEFAULT 0,
+  `description` VARCHAR(255) NOT NULL,
+  `streaming_platform` varchar(40)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Movie`
 --
 
-INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `director`, `producer`, `language`, `country`, `gross`, `streaming_platform`, `totalAudiScore`, `totalCriticScore`) VALUES
-(1, 'Parasite', '00:00:00', 'Bong Joon Ho', 'NEON', '', '', 267000000, '', 0, 0),
-(2, 'Avengers: Endgame', '00:00:00', 'Joe Russo', 'Marvel Studios', '', '', 312900000, '', 0, 0),
-(3, 'Us', '00:00:00', 'Jordan Peele', 'Universal Pictures', '', '', 26000000, '', 0, 0),
-(4, 'Knives Out', '00:00:00', 'Rian Johnson', 'Lionsgate', '', '', 312900000, '', 0, 0),
-(5, 'Toy Story 4', '00:00:00', 'Josh Cooley', 'Disney', '', '', 1073000000, '', 0, 0),
-(6, 'The Irishman', '00:00:00', 'Martin Scorsese', 'Netflix', '', '', 119000000, '', 0, 0),
-(7, 'Little Women', '00:00:00', 'Greta Gerwig', 'Sony Pictures', '', '', 206000000, '', 0, 0),
-(8, 'Booksmart', '00:00:00', 'Olivia Wilde', 'United Artists', '', '', 24900000, '', 0, 0),
-(9, 'The Farewell', '00:00:00', 'Lulu Wang', 'A24', '', '', 22500000, '', 0, 0),
-(10, 'Marriage Story', '00:00:00', 'Noah Baumbach', 'Netflix', '', '', 2300000, '', 0, 0);
+INSERT INTO `Movie` (`movie_id`, `movie_title`, `movie_duration`, `trailer_link`, `release_date`, `language`, `country`,`user_watched`, `description`, `streaming_platform`) VALUES
+(1, 'Parasite', '00:00:00', NULL, '2008-11-11', 'English', 'America', 2, 'Amazing Movie', 'Netflix');
+
 
 -- --------------------------------------------------------
 
