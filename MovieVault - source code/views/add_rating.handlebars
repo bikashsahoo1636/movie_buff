@@ -8,19 +8,21 @@
 
 
 <form id="add_rating" action="/add_rating" method="post">
-    Movie: <select name="id" required> 
+    <p>Movie:<p> <select name="id" required> 
         {{#each movie}}
         <option value="{{id}}">{{movie_title}}</option>
         {{/each}}
     </select><br>
 
-    Score (0-100)<input type="number" name="score" required><br>
-    Explanation <input type="text" name="explanation" required><br>
-    <input type="radio" id="watchlist" name="list" value="watchlist" >
-    <label for="watchlist">Add to Watch List </label><br>
-    <input type="radio" id="wishlist" name="list" value="wishlist" >
-    <label for="wishlist">Add to Wish List List </label><br>
+    <p>Score (0-100)</p><input type="number" name="score" required><br>
+    <p>Explanation</p> <input type="text" name="explanation" required><br>
+    <input type="radio" id="addToWatchedList" name="addToWatchedList" value="true">
+    <label for="addToWatchedList">Add to Watch List </label><br>
+    <input type="radio" id="addToWishList" name="addToWishList" value="true">
+    <label for="addToWishList">Add to Wish List List </label><br>
+    
     <input type="submit" value="Submit">
+
  </form>
 <br/>
 
