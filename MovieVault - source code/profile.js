@@ -33,7 +33,7 @@ module.exports = function(){
     }
 
     function getUsername(res,mysql,context, complete , id){
-        var sql = "SELECT username, company From Account a INNER JOIN Member m on a.account_ID=m.account_ID Where a.account_ID = ?";
+        var sql = "SELECT username FROM Users Where user_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
         if(error){
