@@ -26,9 +26,3 @@ Aa a movie viewer I want a database of movie reviews created by other viewers so
 - Node
 - Express
 - Mysql
-  
-## Screenshots:
-
-
-## Contributors:
-
