@@ -39,6 +39,33 @@ module.exports = function(){
         {
             req.body.explanation = null;
         }
+        if (req.body.explanation == null || req.body.score == null)
+        {
+            var sql = "INSERT INTO User_Movie_Detail (user_id,movie_id,is_watched,in_wishlist) VALUES (?,?,?,?); ";
+        // var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?,?,?)";       
+        var inserts = [id, req.body.id,addToWatchedList,addToWishList];
+        console.log("inserts is: ",inserts);
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log("*****ERROR******")
+                console.log(JSON.stringify(error))
+                res.write(JSON.stringify(error));
+                return res.end();
+            }else{
+                if(error){
+                    console.log("*****ERROR******")
+                    console.log(JSON.stringify(error))
+                    res.write(JSON.stringify(error));
+                    return res.end();
+                }
+                else{
+                    console.log("*****SUBMITTED RATING******")
+                    return res.redirect('/profile');
+                }
+            }
+        });
+        }
+        else {
         var sql = "CALL addRatings (?,?,?,?,?,?)";
         // var sql = "INSERT INTO Rating_Entry (movie_id, account_ID, score, explanation) VALUES (?,?,?,?,?,?)";       
         var inserts = [id, req.body.id,req.body.explanation,req.body.score,addToWatchedList,addToWishList];
@@ -62,6 +89,7 @@ module.exports = function(){
                 }
             }
         });
+    }
     }
 
     function checkValid(req,res,mysql, id){
